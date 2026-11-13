@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4b271e">
+  <title>선배에게 진짜 물어봐요 · 서울관광고등학교</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@500;700;900&display=swap');
+    :root{--brown:#4b271e;--cocoa:#7a3e28;--cream:#fff8e9;--orange:#f39032;--pink:#ef6f7b;--mint:#6fc4ae;--ink:#321b16}
+    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--cream);font-family:'Noto Sans KR',sans-serif;color:var(--ink)}
+    body{background:radial-gradient(circle at 12% 10%,#fff 0 1%,transparent 18%),radial-gradient(circle at 85% 11%,#ffd99e 0 2%,transparent 20%),linear-gradient(135deg,#fff8e8 0%,#ffeccf 57%,#ffd7a1 100%)}
+    .board{position:relative;width:100vw;height:100vh;min-height:540px;overflow:hidden;isolation:isolate;padding:4.1vh 5vw 4vh}
+    .top{position:relative;z-index:3;display:flex;align-items:flex-start;justify-content:space-between;gap:2rem}
+    .eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #f4c477;border-radius:999px;padding:.4rem 1rem;font-size:clamp(12px,1.25vw,19px);font-weight:900;box-shadow:0 6px 0 rgba(122,62,40,.1)}
+    h1{font-family:Jua,sans-serif;font-size:clamp(33px,4.5vw,76px);line-height:1;margin:.65rem 0 .25rem;letter-spacing:-.045em;color:var(--brown);text-shadow:0 4px 0 #fff}
+    h1 span{color:#e7594d}.guide{font-size:clamp(13px,1.32vw,20px);font-weight:700;margin:0;color:#795648}.badge{font-family:Jua,sans-serif;background:var(--brown);color:#fff;text-align:center;border-radius:22px;padding:1.1rem 1.55rem;min-width:185px;font-size:clamp(16px,1.65vw,26px);box-shadow:0 8px 0 #c96b3f;transform:rotate(2deg)}
+    .cards{position:relative;z-index:2;width:min(91vw,1480px);height:calc(100vh - 190px);margin:0 auto;min-height:415px}
+    .card{position:absolute;width:clamp(118px,11.6vw,184px);height:clamp(124px,12.4vw,197px);border:0;border-radius:22px;background:#fff4dc;color:var(--brown);cursor:pointer;box-shadow:0 10px 0 #d88e50,0 18px 22px rgba(76,37,27,.18);padding:10px 9px 7px;transition:transform .25s ease,box-shadow .25s ease,filter .25s ease;animation:float var(--d) ease-in-out infinite alternate;animation-delay:var(--delay);touch-action:manipulation}
+    .card:hover,.card:focus-visible{transform:translateY(-12px) rotate(var(--r)) scale(1.06);box-shadow:0 13px 0 #c87139,0 25px 27px rgba(76,37,27,.22);outline:4px solid #f4a143}.card.used{filter:saturate(.28);opacity:.52;animation:none}.card.used:hover{transform:translateY(-5px) rotate(var(--r)) scale(1.02)}
+    .food{height:64%;border-radius:15px;display:grid;place-items:center;font-size:clamp(53px,5.1vw,80px);line-height:1;background:linear-gradient(135deg,var(--bg1),var(--bg2));box-shadow:inset 0 3px 0 rgba(255,255,255,.7)}
+    .food::after{content:'✦';position:absolute;color:#fff;opacity:.8;font-size:20px;transform:translate(2.7rem,-1.4rem)}.label{font-family:Jua,sans-serif;display:block;font-size:clamp(15px,1.45vw,23px);padding-top:.4rem;white-space:nowrap}.num{position:absolute;top:5px;left:5px;width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:var(--brown);color:#fff;font-size:13px;font-weight:900}
+    .tip{position:absolute;z-index:1;right:2vw;bottom:1vh;background:#fff;max-width:270px;border-radius:22px;padding:13px 18px;font-size:clamp(12px,1.1vw,16px);font-weight:800;line-height:1.55;box-shadow:0 10px 24px rgba(76,37,27,.11);transform:rotate(-2deg)}.tip b{color:#db604e}
+    .bubble{position:absolute;z-index:1;font-size:clamp(20px,2.1vw,34px);opacity:.45}.bubble.one{left:1%;top:37%}.bubble.two{right:3%;top:30%}.bubble.three{left:11%;bottom:4%}
+    .shade{display:none;position:fixed;inset:0;z-index:20;background:rgba(47,22,15,.52);backdrop-filter:blur(5px)}.shade.open{display:grid;place-items:center;animation:fade .25s ease both}
+    .reveal{position:relative;width:min(83vw,1060px);min-height:min(67vh,620px);padding:clamp(25px,4vw,58px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;border:6px solid #fff6dd;border-radius:40px;background:radial-gradient(circle at 50% 0,#9e5c40 0,#623225 54%,#3f211b 100%);box-shadow:0 28px 60px rgba(20,7,3,.38);overflow:hidden}.reveal::before,.reveal::after{content:'✦';position:absolute;color:#f7bd59;opacity:.82;font-size:clamp(35px,5vw,76px);animation:twinkle 1.4s infinite alternate}.reveal::before{left:5%;top:11%}.reveal::after{right:6%;bottom:11%;animation-delay:.6s}.picked{font-family:Jua,sans-serif;font-size:clamp(17px,1.8vw,27px);color:#ffe2a0;margin-bottom:1.3rem}.picked strong{color:#fff}.question{font-family:Jua,sans-serif;font-size:clamp(35px,4.5vw,74px);line-height:1.32;letter-spacing:-.035em;margin:0;max-width:900px;text-shadow:0 3px 0 #28100b;animation:questionIn .55s cubic-bezier(.2,.9,.24,1.2) both}.talk{margin-top:1.8rem;font-weight:900;font-size:clamp(16px,1.55vw,24px);color:#ffe9b9}.actions{display:flex;gap:12px;margin-top:2.1rem}.action{border:0;border-radius:999px;padding:.8rem 1.3rem;font-family:'Noto Sans KR',sans-serif;font-size:clamp(14px,1.2vw,18px);font-weight:900;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.2);touch-action:manipulation}.again{background:#fff;color:#633023}.again:hover{transform:translateY(-2px)}.close{background:#f4ad47;color:#4b271e}.sound{position:absolute;right:5%;top:5%;border:1px solid rgba(255,255,255,.55);border-radius:99px;background:rgba(255,255,255,.15);color:#fff;padding:.5rem .8rem;font-weight:900;cursor:pointer}.sound.off{opacity:.65}
+    #petals{pointer-events:none;position:fixed;inset:0;z-index:30;overflow:hidden}.petal{position:absolute;top:-8vh;width:13px;height:18px;background:var(--c);border-radius:75% 0 75% 0;animation:fall var(--fall) linear var(--fall-delay) both;opacity:.9}.petal:nth-child(3n){border-radius:0 75% 0 75%;width:9px;height:14px}.petal:nth-child(4n){background:#fff0c7!important}
+    @keyframes float{from{translate:0 -5px}to{translate:0 10px}}@keyframes fall{to{transform:translate3d(var(--x),115vh,0) rotate(630deg);opacity:.35}}@keyframes twinkle{to{transform:scale(1.45) rotate(30deg);opacity:.35}}@keyframes questionIn{from{transform:scale(.3) rotate(-4deg);opacity:0}to{transform:scale(1);opacity:1}}@keyframes fade{from{opacity:0}to{opacity:1}}
+    @media (max-width:760px),(max-height:620px){.board{padding:2.5vh 3vw}.badge{padding:.65rem .85rem;min-width:auto;border-radius:14px}.guide{display:none}.cards{height:calc(100vh - 105px);width:97vw}.card{border-radius:13px;padding:5px;width:clamp(85px,13vw,115px);height:clamp(92px,14vw,126px)}.food{border-radius:9px}.num{width:20px;height:20px;font-size:10px}.tip{display:none}.reveal{min-height:75vh;border-radius:25px}.actions{margin-top:1.2rem}.bubble{display:none}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="top"><div><div class="eyebrow">🍴 서울관광고등학교 · 선배와의 대화</div><h1>선배에게 <span>진짜</span> 물어봐요!</h1><p class="guide">궁금한 메뉴 카드를 하나 골라 터치해 보세요. 선배가 솔직하게 답해줄게요.</p></div><div class="badge">15가지 질문<br>랜덤 PICK!</div></header>
+    <div class="bubble one">✦</div><div class="bubble two">❀</div><div class="bubble three">✦</div>
+    <section class="cards" id="cards" aria-label="선배에게 물어볼 질문 카드"></section>
+    <aside class="tip">💡 질문이 떠오르지 않으면 <b>마음에 드는 메뉴</b>를 골라보세요.<br>카드가 뒤집히면 선배에게 바로 질문!</aside>
+  </main>
+  <div class="shade" id="shade" role="dialog" aria-modal="true" aria-labelledby="questionText"><div class="reveal"><button class="sound" id="soundBtn" type="button">🔊 음성 켜짐</button><div class="picked" id="picked"></div><h2 class="question" id="questionText"></h2><p class="talk">🎙️ 선배님, 진짜 궁금해요!</p><div class="actions"><button class="action again" id="again" type="button">🔊 다시 듣기</button><button class="action close" id="close" type="button">다른 카드 고르기</button></div></div></div>
+  <div id="petals" aria-hidden="true"></div>
+  <script>
+    const questions=[
+      ['🍰','딸기 케이크','실제 면접 분위기는 어땠나요?','#f8b8c7','#ffdce0'],
+      ['🥐','크루아상','가장 기억에 남는 면접 질문은 무엇인가요?','#eabd71','#ffedb0'],
+      ['🍳','브런치','면접 준비에 가장 도움이 된 방법은 무엇인가요?','#f0a75f','#ffe3a8'],
+      ['🧁','컵케이크','면접 답변을 외워갔나요?','#d59ad0','#f8d1ee'],
+      ['🍕','치즈 피자','입학 전 가장 걱정했던 것은 무엇이었나요?','#e77954','#ffd190'],
+      ['🍩','도넛','실제 학교생활은 예상과 달랐나요?','#da9d79','#ffe0bc'],
+      ['🍜','라면','처음 입학했을 때 친구 사귀기 어렵지 않았나요?','#df6a50','#ffc99a'],
+      ['🧇','와플','가장 재미있는 수업이나 실습은 무엇인가요?','#cb9742','#ffe6a8'],
+      ['🍔','치즈버거','학교생활에서 가장 힘든 점은 무엇인가요?','#dd9a4d','#f8d796'],
+      ['🥨','프레첼','우리 학과에 들어오기 전에 준비하면 좋은 것은 무엇인가요?','#b9825d','#f2d0ae'],
+      ['☕','카페라떼','자격증 준비는 어떻게 하나요?','#a86d4b','#f5d1ae'],
+      ['🍱','도시락','취업과 대학 진학은 어떻게 준비하나요?','#9dbe8a','#dcf1c9'],
+      ['🍪','쿠키','학교에 다니며 진로가 바뀌어도 괜찮나요?','#c7854c','#f0d1a0'],
+      ['🍙','주먹밥','다시 중학교 3학년이라면 서울관광고에 지원할 건가요?','#90b9b5','#d9f0e6'],
+      ['🍨','아이스크림','후배에게 꼭 해주고 싶은 한마디는 무엇인가요?','#8bc5da','#d8f3f8']
+    ];
+    const positions=[[1,6,-4],[20,4,3],[39,5,-2],[58,3,4],[77,6,-3],[8,37,4],[28,35,-3],[48,38,3],[68,36,-4],[86,35,3],[2,69,4],[22,68,-4],[43,69,2],[64,68,-3],[83,67,4]];
+    const audioUrls=['https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=7904ab28a1a442c48fe4de3298b935ce.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=1956eabddf874c1a979c9e9d20ee8ea5.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=1956eabddf874c1a979c9e9d20ee8ea5.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=f4265e3abd2f45daaef1b2323a2fadc9.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=b1fd2165fedd493c8852d2180b57eba5.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=b4877a07d7684906992eaeb7d4366663.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=8ad14c417dfd4851a00471211f880f66.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=2fd9f971a54b41d1809c78b1cec11ab1.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=3bce192b5bea446a8c7236efb3192c69.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=e975fb07e8bf469ba589c738a611e2ab.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=c9ccb5767b2145cc9c61778a0f42cbd0.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=b0d21b369d0147c5b8f5069f4b558cc7.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=c03a98ca87484b68972998de3b448d73.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=481d0b0e8896492baae4ae593cfa5d7e.mp3','https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=3f027e963d564d80a622d1b948970151.mp3'];
+    audioUrls[1]='https://resource2.heygen.ai/text_to_speech/07a2af5ba87f4322a8cda2b226471361/x9yUsHEv2yOPCBKlOk10/id=55dc421bd91644ebad40c47a0e12dc37.mp3';
+    const cards=document.querySelector('#cards'), shade=document.querySelector('#shade'), petals=document.querySelector('#petals'); let selected=-1, muted=false, activeAudio=null;
+    questions.forEach((q,i)=>{const [x,y,r]=positions[i],b=document.createElement('button');b.type='button';b.className='card';b.style.cssText=`left:${x}%;top:${y}%;--r:${r}deg;--d:${2.1+(i%4)*.35}s;--delay:-${(i%5)*.28}s;--bg1:${q[3]};--bg2:${q[4]}`;b.innerHTML=`<span class="num">${i+1}</span><span class="food">${q[0]}</span><span class="label">${q[1]}</span>`;b.setAttribute('aria-label',`${q[1]} 카드 선택`);b.onclick=()=>openQuestion(i,b);cards.appendChild(b)});
+    function playAudio(i){if(muted)return;if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}activeAudio=new Audio(audioUrls[i]);activeAudio.play().catch(()=>{});}
+    function petalsRain(){petals.innerHTML='';for(let i=0;i<42;i++){const p=document.createElement('i');p.className='petal';p.style.cssText=`left:${Math.random()*100}%;--x:${(Math.random()-.5)*260}px;--fall:${2.6+Math.random()*2.4}s;--fall-delay:${Math.random()*.55}s;--c:${['#f58b9c','#ffcd6a','#f7aac6','#ffefd5'][i%4]}`;petals.appendChild(p)}setTimeout(()=>petals.innerHTML='',5500)}
+    function openQuestion(i,button){selected=i;document.querySelectorAll('.card')[i].classList.add('used');document.querySelector('#picked').innerHTML=`${questions[i][0]} <strong>${questions[i][1]}</strong> 카드에서 나온 질문`;document.querySelector('#questionText').textContent=questions[i][2];shade.classList.add('open');document.querySelector('#close').focus();petalsRain();playAudio(i)}
+    function closeQuestion(){shade.classList.remove('open');if(activeAudio){activeAudio.pause();activeAudio.currentTime=0}document.querySelectorAll('.card')[selected]?.focus()}
+    document.querySelector('#close').onclick=closeQuestion;document.querySelector('#again').onclick=()=>playAudio(selected);document.querySelector('#soundBtn').onclick=()=>{muted=!muted;const b=document.querySelector('#soundBtn');b.textContent=muted?'🔇 음성 꺼짐':'🔊 음성 켜짐';b.classList.toggle('off',muted);if(muted&&activeAudio)activeAudio.pause();else if(!muted)playAudio(selected)};shade.addEventListener('click',e=>{if(e.target===shade)closeQuestion()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&shade.classList.contains('open'))closeQuestion();if(e.key==='Enter'&&shade.classList.contains('open')&&e.target===document.body)playAudio(selected)});
+  </script>
+</body>
+</html>
